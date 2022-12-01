@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>Donors | Dashboard</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Dashboard Donors</a>
+      </nav>
+
+      <div class="jumbotron">
+
+
+        <div class="container" id="app">
+
+            <div class="modal" id="modalProcess" tabindex="-1" data-backdrop="static">
+                <div class="modal-dialog  modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Insira o json no formato texto</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-if="!enviando">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="message-text" class="col-form-label">Insira os dados:</label>
+                        <textarea class="form-control" v-model="json" :disabled="enviando" style="resize: none;"></textarea>
+                    </div>
+                    <div class="modal-footer" v-if="!enviando">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                      <button type="button" v-on:click="process()" class="btn btn-primary">Processar</button>
+                    </div>
+                    <div class="modal-footer" v-else>
+                        Aguarde, processando...
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row mb-4" v-if="amountPerState.length <= 0">
+            <div class="col-lg-12 text-right">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalProcess">Enviar dados</button>
+            </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-header">
+                          Quantidade por estado
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Quantidade</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr v-for="(data, index) in amountPerState" :key="index">
+                                    <td>{{data.estado}}</td>
+                                    <td>{{data.quantidade}}</td>
+                                  </tr>
+                                  <tr v-if="amountPerState.length <= 0">
+                                    <td colspan="2">Nenhum dado encontrado</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+
+                   
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-header">
+                          Quantidade por estado
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Faixa Idade</th>
+                                    <th scope="col">Média</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr v-for="(data, index) in averageImcByAge" :key="index">
+                                    <td>{{data.faixa_idade}}</td>
+                                    <td>{{data.media.toFixed(2)}}</td>
+                                  </tr>
+                                  <tr v-if="averageImcByAge.length <= 0">
+                                    <td colspan="2">Nenhum dado encontrado</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+
+
+                    
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-header">
+                          Quantidade por estado
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sexo</th>
+                                    <th scope="col">Porcentagem</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr v-for="(data, index) in percentageObese" :key="index">
+                                    <td>{{data.sexo}}</td>
+                                    <td>{{data.percentual}}%</td>
+                                  </tr>
+                                  <tr v-if="percentageObese.length <= 0">
+                                    <td colspan="2">Nenhum dado encontrado</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+
+                    
+                </div>
+
+                </div>
+                <div class="row mt-4">
+
+                <div class="col-lg-6">
+
+                    <div class="card">
+                        <div class="card-header">
+                          Quantidade por estado
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Tipo Sanguíneo</th>
+                                    <th scope="col">Média</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr v-for="(data, index) in averageByBloodType" :key="index">
+                                    <td>{{data.tipo_sanguineo}}</td>
+                                    <td>{{data.media}}</td>
+                                  </tr>
+                                  <tr v-if="averageByBloodType.length <= 0">
+                                    <td colspan="2">Nenhum dado encontrado</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+                    
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                          Quantidade por estado
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Tipo Sanguíneo</th>
+                                    <th scope="col">Quantidade</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr v-for="(data, index) in potencialDonorsByType" :key="index">
+                                    <td>{{data.tipo_sanguineo}}</td>
+                                    <td>{{data.quantidade}}</td>
+                                  </tr>
+                                  <tr v-if="potencialDonorsByType.length <= 0">
+                                    <td colspan="2">Nenhum dado encontrado</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+
+                    
+                </div>
+                
+
+            </div>
+
+        </div>
+
+        </div>
+
+
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <script src="./assets/js/vue.js"></script>
+    <script src="./assets/js/axios.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
