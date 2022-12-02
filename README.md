@@ -1,9 +1,9 @@
 # Donors
 <b>Descrição do projeto</b><br>
-O sistema consiste em receber uma lista de pacientes e com isso processar algumas informações.<br>
+O sistema consiste em receber uma lista de candidatos a doadores e com isso processar algumas informações.<br>
 <br>
 <b>Funcionalidades do projeto</b><br>
-O sistema recebe uma lista com varios pacientes e extrai informações como a quantidade de candidatos em cada estado do país, imc médio em cada faixa de idade,
+O sistema recebe uma lista com varios candidatos e extrai informações como a quantidade de candidatos em cada estado do país, imc médio em cada faixa de idade,
 percentual de obesos entre homens e mulheres, média de idade para cada tipo sanguíneo e a quantidade de possíveis doadores para cada tipo sanguíneo receptor.<br>
 <br>
 <b>Tecnologias utilizadas</b><br>
