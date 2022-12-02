@@ -57,7 +57,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                          Quantidade por estado
+                          Quantidade de candidatos por estado
                         </div>
                         <div class="card-body">
                             <table class="table table-sm">
@@ -87,7 +87,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                          Quantidade por estado
+                          Média de IMC dos candidatos por faixa de idade
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -98,27 +98,24 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr v-for="(data, index) in averageImcByAge" :key="index">
+                                  <tr v-for="(data, index) in averageImcByAge" :key="index" v-if="amountPerState.length > 0">
                                     <td>{{data.faixa_idade}}</td>
                                     <td>{{data.media.toFixed(2)}}</td>
                                   </tr>
-                                  <tr v-if="averageImcByAge.length <= 0">
+                                  <tr v-if="amountPerState.length <= 0">
                                     <td colspan="2">Nenhum dado encontrado</td>
                                   </tr>
                                 </tbody>
                               </table>
                         </div>
                       </div>
-
-
-                    
                 </div>
 
                 <div class="col-lg-4">
 
                     <div class="card">
                         <div class="card-header">
-                          Quantidade por estado
+                          Percentual de obesos entre homens e mulheres
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -131,7 +128,7 @@
                                 <tbody>
                                   <tr v-for="(data, index) in percentageObese" :key="index">
                                     <td>{{data.sexo}}</td>
-                                    <td>{{data.percentual}}%</td>
+                                    <td>{{data.percentual}} %</td>
                                   </tr>
                                   <tr v-if="percentageObese.length <= 0">
                                     <td colspan="2">Nenhum dado encontrado</td>
@@ -151,7 +148,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                          Quantidade por estado
+                          Média de idade para cada tipo sanguíneo
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -179,7 +176,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                          Quantidade por estado
+                          Quantidade de possíveis doadores para cada tipo sanguíneo receptor
                         </div>
                         <div class="card-body">
                             <table class="table">
